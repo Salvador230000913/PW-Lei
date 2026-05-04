@@ -2,7 +2,7 @@
 
 ## Autores
     • Salvador Dias - 230000913
-    •
+    • Tomás Costa - 230001053
 
 ## Tema do Projeto
     •
