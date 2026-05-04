@@ -1,4 +1,4 @@
-# Projeto de Programação para a Web.
+# Projeto de Programação para a Web
 
 ## Autores
     • Salvador Dias - 230000913
