@@ -1,4 +1,17 @@
-# PW-Lei
-Projeto de Programação para a Web.
+# Projeto de Programação para a Web.
 
-Ideia do Projeto
+## Autores
+    • Salvador Dias - 230000913
+    •
+
+## Tema do Projeto
+    •
+
+**Ideia Geral** - 
+
+## Funcionalidades
+    •
+
+
+## Ligação Web
+https://salvador230000913.github.io/PW-Lei/
