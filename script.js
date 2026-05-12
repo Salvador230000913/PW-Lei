@@ -23,8 +23,3 @@ polygon.bindPopup("I am a polygon.");
 
 map.removeControl(circle);
 
-
-fetch("https://opensky-network.org/api/states/all")
-    .then(function(resposta){
-        console.log(resposta);
-    })
