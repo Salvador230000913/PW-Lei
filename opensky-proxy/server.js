@@ -4,18 +4,39 @@ import fetch from "node-fetch";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Permitir CORS para qualquer origem
+const OPENSKY_USER = process.env.OPENSKY_USER;
+const OPENSKY_PASS = process.env.OPENSKY_PASS;
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
 
-// Endpoint principal
 app.get("/api/flights", async (req, res) => {
   try {
+    const headers = {};
+
+    // Só adiciona autenticação se as variáveis existirem
+    if (OPENSKY_USER && OPENSKY_PASS) {
+      headers.Authorization =
+        "Basic " +
+        Buffer.from(
+          `${OPENSKY_USER}:${OPENSKY_PASS}`
+        ).toString("base64");
+    }
+
     const response = await fetch(
-      "https://opensky-network.org/api/states/all"
+      "https://opensky-network.org/api/states/all",
+      { headers }
     );
+
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: "Erro da OpenSky",
+        status: response.status
+      });
+    }
+
     const data = await response.json();
     res.json(data);
   } catch (error) {
@@ -24,11 +45,6 @@ app.get("/api/flights", async (req, res) => {
       details: error.message
     });
   }
-});
-
-// Endpoint de teste
-app.get("/", (req, res) => {
-  res.send("OpenSky Proxy está a funcionar!");
 });
 
 app.listen(PORT, () => {
