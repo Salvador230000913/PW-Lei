@@ -1,3 +1,7 @@
+:root{
+    --alturaHeader: 0px;
+    --alturaFooter: 0px ;
+}
 body, html {
     margin: 0;
     padding: 0;
@@ -5,34 +9,16 @@ body, html {
     overflow-y: hidden;
 }
 header {
+    position: relative;
+    width: 100vw;
     background-color: #1a1a1a;
     color: #ffffff;
-    padding: 15px 30px;
+    padding-top: 15px;
+    padding-bottom: 15px    ;
     border-bottom: 2px solid #2c3e50;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    text-align: center;
 }
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #3498db; /* Azul para combinar com o mapa */
-}
-
-.logo span {
-    color: white; /* O texto fica branco */
-}
-
 nav ul {
     list-style: none;
     margin: 0;
@@ -52,19 +38,19 @@ nav a:hover {
     color: #3498db;
 }
 #map {
-    height: 100vh;
-    width: 100vw;
+    height: calc(100vh - var(--alturaHeader) - var(--alturaFooter));
+    width:100%;
 }
 .leaflet-tile-pane {
     filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 }
 /* --- ESTILOS DO RODAPÉ --- */
 footer {
+    position: relative;
     background-color: #1a1a1a; 
     color: #bdc3c7;
     text-align: center;
     padding: 20px 15px;
-    border-top: 2px solid #2c3e50;
     font-size: 0.85rem;
     margin-top: auto;
 }

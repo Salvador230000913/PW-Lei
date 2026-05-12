@@ -6,25 +6,17 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 
 var marker = L.marker([51.5, -0.09]).addTo(map);
 
-var circle = L.circle([51.508, -0.11], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(map);
-var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(map);
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
-
-map.removeLayer(circle);
+marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
 
 
-fetch("https://opensky-network.org/api/states/all")
-    .then(function(resposta){
-        console.log(resposta);
-    })
+//dimensionar o mapa atraves da altura do header e footer
+let elementoHeader = document.querySelector("header");
+let alturaHeader = elementoHeader.getBoundingClientRect().height;
+let footer = document.querySelector("footer");
+let alturaFooter = footer.getBoundingClientRect().height;
+
+ //definir a variavel altura footer no css
+document.documentElement.style.setProperty('--alturaFooter',`${alturaFooter}px`);
+ //definir a variavel altura header no css
+document.documentElement.style.setProperty('--alturaHeader', `${alturaHeader}px`);
+ 
