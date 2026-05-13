@@ -4,9 +4,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
 }).addTo(map);
 
-var marker = L.marker([51.5, -0.09]).addTo(map);
-
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
 
 
 //dimensionar o mapa atraves da altura do header e footer
@@ -19,4 +16,35 @@ let alturaFooter = footer.getBoundingClientRect().height;
 document.documentElement.style.setProperty('--alturaFooter',`${alturaFooter}px`);
  //definir a variavel altura header no css
 document.documentElement.style.setProperty('--alturaHeader', `${alturaHeader}px`);
- 
+
+//criar icons com formato de avião para o mapa
+//definir o avião
+var LeafIcon = L.Icon.extend({
+    options: {
+        iconSize:     [20, 20],
+        iconAnchor:   [10, 10],
+        popupAnchor:  [100, 0]
+    }
+});
+
+var aviaoVerde = new LeafIcon({iconUrl: 'imagens/aviao_verde.png'}),
+    aviaoVermelho = new LeafIcon({iconUrl: 'imagens/aviao_vermelho.png'}),
+    aviaoAzul = new LeafIcon({iconUrl: 'imagens/aviao_azul.png'});
+//----------------------------------------------------------------------
+
+//ao adicionar o aviao, adicionar logo um popup com as informacoes do voo
+
+function adicionarAviao(longitude, latitude){
+    informacoesPopUp = `<p>Longitude: ${longitude} <br />Latitude: ${latitude}</p>`
+    var marcadorAviao = L.marker([longitude,latitude], {icon: aviaoVerde}).bindPopup(informacoesPopUp).addTo(map);
+    marcadorAviao.on('click', zoomMarcador);
+
+}
+//Event handler, dar zoom no aviao selecionado
+function zoomMarcador(e){
+    map.setView(e.latlng, 8);
+}
+
+
+//testes
+adicionarAviao(51.6, -0.09);
