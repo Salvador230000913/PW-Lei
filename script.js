@@ -1,9 +1,14 @@
 var map = L.map('map').setView([51.505, -0.09], 5);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     maxZoom: 20,
+    minZoom: 2,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
 }).addTo(map);
-
+//definir os limites do mapa
+var corner1 = L.latLng(-100, -200);
+var corner2 = L.latLng(100, 200);
+var bounds = L.latLngBounds(corner1, corner2);
+map.setMaxBounds(bounds);
 
 
 //dimensionar o mapa atraves da altura do header e footer
