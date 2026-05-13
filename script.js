@@ -1,5 +1,5 @@
 var map = L.map('map').setView([51.505, -0.09], 5);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_no_buildings/{z}/{x}/{y}{r}.png', {
     maxZoom: 20,
     minZoom: 2,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -12,15 +12,13 @@ map.setMaxBounds(bounds);
 
 
 //dimensionar o mapa atraves da altura do header e footer
-let elementoHeader = document.querySelector("header");
-let alturaHeader = elementoHeader.getBoundingClientRect().height;
-let footer = document.querySelector("footer");
+let header = document.querySelector(".header");
+let footer = document.querySelector(".footer");
 let alturaFooter = footer.getBoundingClientRect().height;
 
  //definir a variavel altura footer no css
 document.documentElement.style.setProperty('--alturaFooter',`${alturaFooter}px`);
  //definir a variavel altura header no css
-document.documentElement.style.setProperty('--alturaHeader', `${alturaHeader}px`);
 
 //criar icons com formato de avião para o mapa
 //definir o avião
@@ -53,3 +51,9 @@ function zoomMarcador(e){
 
 //testes
 adicionarAviao(51.6, -0.09);
+
+//evitar o arrastar do mapa atraves do header e da caixa de informacao
+L.DomEvent.disableClickPropagation(header);
+L.DomEvent.disableClickPropagation(footer);
+var elementInfoBox = document.querySelector(".info-box");
+L.DomEvent.disableClickPropagation(elementInfoBox);
