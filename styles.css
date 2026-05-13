@@ -70,3 +70,15 @@ footer a:hover {
     color: #ffffff;
     text-decoration: underline;
 }
+/* ESTILOS DA CAIXA DE INFORMAÇÃO SOBRE OS AVIOES */
+.info-box {
+    position: absolute;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /*Garantir que a caixa fique acima do mapa*/
+    z-index: 401; 
+    /* Fazer - garantir que se mexer na caixa NÃO mexa no mapa*/
+}
