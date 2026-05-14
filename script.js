@@ -9,7 +9,7 @@ var corner1 = L.latLng(-100, -200);
 var corner2 = L.latLng(100, 200);
 var bounds = L.latLngBounds(corner1, corner2);
 map.setMaxBounds(bounds);
-
+map.on('click', fecharInfoBox);
 
 //dimensionar o mapa atraves da altura do header e footer
 let header = document.querySelector(".header");
@@ -41,11 +41,19 @@ function adicionarAviao(longitude, latitude){
     informacoesPopUp = `<p>Longitude: ${longitude} <br />Latitude: ${latitude}</p>`
     var marcadorAviao = L.marker([longitude,latitude], {icon: aviaoVerde}).bindPopup(informacoesPopUp).addTo(map);
     marcadorAviao.on('click', zoomMarcador);
+    marcadorAviao.on('click', carregarInformacoesInfoBox);
 
 }
 //Event handler, dar zoom no aviao selecionado
 function zoomMarcador(e){
     map.setView(e.latlng, 8);
+}
+function carregarInformacoesInfoBox(e){
+    elementoInfoBox.classList.add("ativa");
+}
+function fecharInfoBox(e){
+    elementoInfoBox.classList.remove("ativa");
+    
 }
 
 
@@ -55,5 +63,12 @@ adicionarAviao(51.6, -0.09);
 //evitar o arrastar do mapa atraves do header e da caixa de informacao
 L.DomEvent.disableClickPropagation(header);
 L.DomEvent.disableClickPropagation(footer);
-var elementInfoBox = document.querySelector(".info-box");
-L.DomEvent.disableClickPropagation(elementInfoBox);
+var elementoInfoBox = document.querySelector(".info-box");
+L.DomEvent.disableClickPropagation(elementoInfoBox);
+
+
+
+//infoBox botao
+var elementoBotaoInfoBox = document.querySelector("#fechar_info-box");
+elementoBotaoInfoBox.addEventListener('click', fecharInfoBox);
+

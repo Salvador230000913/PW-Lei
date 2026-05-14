@@ -54,7 +54,7 @@ nav a:hover {
     position: absolute;
 }
 .leaflet-tile-pane {
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    filter: brightness(80%);
 }
 /* --- ESTILOS DO RODAPÉ --- */
 .footer {
@@ -104,6 +104,18 @@ nav a:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     /*Garantir que a caixa fique acima do mapa*/
     z-index: 401; 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 
+
+}
+.info-box.ativa{
+    opacity: 1;
+    visibility: visible;
+    
+}
+.leaflet-control-zoom{
+        top: calc(100vh - var(--alturaFooter));
 
 }
