@@ -38,10 +38,12 @@ var aviaoVerde = new LeafIcon({iconUrl: 'imagens/aviao_verde.png'}),
 //ao adicionar o aviao, adicionar logo um popup com as informacoes do voo
 
 function adicionarAviao(longitude, latitude){
-    informacoesPopUp = `<p>Longitude: ${longitude} <br />Latitude: ${latitude}</p>`
-    var marcadorAviao = L.marker([longitude,latitude], {icon: aviaoVerde}).bindPopup(informacoesPopUp).addTo(map);
-    marcadorAviao.on('click', zoomMarcador);
-    marcadorAviao.on('click', carregarInformacoesInfoBox);
+    if ((longitude != null) && (latitude!=null)){
+         informacoesPopUp = `<p>Longitude: ${longitude} <br />Latitude: ${latitude}</p>`
+        var marcadorAviao = L.marker([longitude,latitude], {icon: aviaoVerde}).bindPopup(informacoesPopUp).addTo(map);
+        marcadorAviao.on('click', zoomMarcador);
+        marcadorAviao.on('click', carregarInformacoesInfoBox);
+    }
 
 }
 //Event handler, dar zoom no aviao selecionado
@@ -50,6 +52,7 @@ function zoomMarcador(e){
 }
 function carregarInformacoesInfoBox(e){
     elementoInfoBox.classList.add("ativa");
+
 }
 function fecharInfoBox(e){
     elementoInfoBox.classList.remove("ativa");
@@ -71,4 +74,24 @@ L.DomEvent.disableClickPropagation(elementoInfoBox);
 //infoBox botao
 var elementoBotaoInfoBox = document.querySelector("#fechar_info-box");
 elementoBotaoInfoBox.addEventListener('click', fecharInfoBox);
+
+
+fetch("dummy_data/flights.json")
+    .then(function (resposta){
+        if(resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then(function(resposta){
+        processarInformacaoJsonAviao(resposta);
+    })
+
+function processarInformacaoJsonAviao(respostaJson){
+    listaDeVoos = respostaJson.states;
+    for (const voo of listaDeVoos) {
+        longitude = voo[5];
+        latitude = voo[6];
+        adicionarAviao(longitude, latitude);
+    }
+}
 
