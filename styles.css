@@ -121,8 +121,7 @@ nav a:hover {
 .info-box {
     position: absolute;
     width: 300px;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 15px;
+    background-color: rgb(230, 230, 230);
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     /*Garantir que a caixa fique acima do mapa*/
@@ -130,8 +129,8 @@ nav a:hover {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-
-
+    top: 10px;
+    left: 10px;
 }
 .info-box.ativa{
     opacity: 1;
@@ -139,6 +138,76 @@ nav a:hover {
     
 }
 .leaflet-control-zoom{
-        top: calc(100vh - var(--alturaFooter));
+    top: calc(100vh - var(--alturaFooter));
 
+}
+.flight-header{
+    background-color: #1a1a1a;
+    color:#ffffff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    
+}
+.flight-header h2{
+    margin: 0;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+#fechar_info-box{
+    cursor:pointer;
+    background-color: grey;
+    border: 1px solid #2e2e2e;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+#fechar_info-box:hover{
+    background-color:red;
+}
+.flight-body {
+    padding: 15px;
+}
+
+.origem{
+    font-weight: bold;
+    color: darkblue;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.data-item {
+    margin-bottom: 10px;
+}
+
+.label {
+    display: block;
+    font-size: 0.7rem;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.value {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    background: #e1f5fe;
+    color: #01579b;
+    margin-top: 5px;
 }
