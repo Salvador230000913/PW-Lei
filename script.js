@@ -1,4 +1,4 @@
-var map = L.map('map').setView([51.505, -0.09], 5);
+var map = L.map('map', {preferCanvas: true, renderer: L.canvas()}).setView([51.505, -0.09], 5);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_no_buildings/{z}/{x}/{y}{r}.png', {
     maxZoom: 20,
     minZoom: 2,
@@ -36,13 +36,30 @@ var aviaoVerde = new LeafIcon({iconUrl: 'imagens/aviao_verde.png'}),
 //----------------------------------------------------------------------
 
 //ao adicionar o aviao, adicionar logo um popup com as informacoes do voo
+//supostamente serve parar criar um canvas no mapa e depois cada aviao vai ser "pintado" no canvas
+var renderizadorCanvas = L.canvas({padding: 0.5});
+
+//script leaflet.canvas-markers
+//https://github.com/eJuke/Leaflet.Canvas-Markers
+var canvasIconLayer = L.canvasIconLayer({}).addTo(map);
+
+
+
 
 function adicionarAviao(longitude, latitude){
     if ((longitude != null) && (latitude!=null)){
          informacoesPopUp = `<p>Longitude: ${longitude} <br />Latitude: ${latitude}</p>`
-        var marcadorAviao = L.marker([longitude,latitude], {icon: aviaoVerde}).bindPopup(informacoesPopUp).addTo(map);
-        marcadorAviao.on('click', zoomMarcador);
-        marcadorAviao.on('click', carregarInformacoesInfoBox);
+        
+            var marcadorAviao = L.marker([latitude,longitude],
+                 {icon: aviaoVerde, renderer: renderizadorCanvas} )
+                 .bindPopup(informacoesPopUp);
+         
+            canvasIconLayer.addOnClickListener(zoomMarcador);
+            canvasIconLayer.addOnClickListener(carregarInformacoesInfoBox);
+            canvasIconLayer.addMarker(marcadorAviao);
+
+      
+
     }
 
 }
@@ -59,9 +76,6 @@ function fecharInfoBox(e){
     
 }
 
-
-//testes
-adicionarAviao(51.6, -0.09);
 
 //evitar o arrastar do mapa atraves do header e da caixa de informacao
 L.DomEvent.disableClickPropagation(header);
@@ -94,4 +108,3 @@ function processarInformacaoJsonAviao(respostaJson){
         adicionarAviao(longitude, latitude);
     }
 }
-
