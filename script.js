@@ -46,30 +46,28 @@ var canvasIconLayer = L.canvasIconLayer({}).addTo(map);
 
 
 
-function adicionarAviao(longitude, latitude){
+function adicionarAviao(latitude, longitude){
     if ((longitude != null) && (latitude!=null)){
          informacoesPopUp = `<p>Longitude: ${longitude} <br />Latitude: ${latitude}</p>`
         
             var marcadorAviao = L.marker([latitude,longitude],
-                 {icon: aviaoVerde, renderer: renderizadorCanvas} )
+                 {icon: aviaoVerde, renderer: renderizadorCanvas, latitude: latitude, longitude: longitude} )
                  .bindPopup(informacoesPopUp);
          
             canvasIconLayer.addOnClickListener(zoomMarcador);
             canvasIconLayer.addOnClickListener(carregarInformacoesInfoBox);
             canvasIconLayer.addMarker(marcadorAviao);
-
-      
+              
 
     }
 
 }
 //Event handler, dar zoom no aviao selecionado
 function zoomMarcador(e){
-    map.setView(e.latlng, 8);
+    map.setView(e.latlng, 15);
 }
 function carregarInformacoesInfoBox(e){
     elementoInfoBox.classList.add("ativa");
-
 }
 function fecharInfoBox(e){
     elementoInfoBox.classList.remove("ativa");
@@ -83,6 +81,9 @@ L.DomEvent.disableClickPropagation(header);
 L.DomEvent.disableClickPropagation(footer);
 var elementoInfoBox = document.querySelector(".info-box");
 L.DomEvent.disableClickPropagation(elementoInfoBox);
+var elementoSearchDiv = document.querySelector(".search-bar");
+L.DomEvent.disableClickPropagation(elementoSearchDiv);
+
 
 
 
@@ -108,8 +109,42 @@ fetch("dummy_data/flights.json")
 function processarInformacaoJsonAviao(respostaJson){
     listaDeVoos = respostaJson.states;
     for (const voo of listaDeVoos) {
-        longitude = voo[5];
-        latitude = voo[6];
+        latitude = voo[5];
+        longitude = voo[6];
         adicionarAviao(longitude, latitude);
     }
 }
+
+function procurarVoo(){
+    var codigoVoo = elementoBoxSearch.value;
+    if(codigoVoo != ""){
+    elementoBoxSearch.value = "";
+    fetch("dummy_data/flights.json")
+        .then(function (resposta){
+            if(resposta.ok){
+                return resposta.json();
+            }
+        })
+        .then(function(resposta){
+            listaDeVoos = resposta.states;
+            let encontrado = false;
+            for (const voo of listaDeVoos){
+                if (codigoVoo == voo[0]){
+                    longitude = voo[5];
+                    latitude = voo[6];
+                    procurarMarkerPorCoordenadas(latitude, longitude);
+                    encontrado = true;
+                }
+            }
+            if (encontrado == false){
+                alert(`Não foi encontrado nenhum voo com o código: ${codigoVoo}`);
+            }
+        })
+    }
+}
+function procurarMarkerPorCoordenadas(latitude, longitude){
+    map.setView(L.latLng(latitude,longitude), 15);
+}
+var elementoBoxSearch = document.querySelector("#flightSearchBox");
+var elementoBotaoSearch = document.querySelector("#flightSearchSubmit");
+elementoBotaoSearch.addEventListener('click', procurarVoo);

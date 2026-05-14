@@ -13,7 +13,6 @@ body, html {
     width: calc(100vw/2);
     background-color: #1a1a1a;
     color: #ffffff;
-    padding-top: 15px;  
     padding-bottom: 15px    ;
     border-bottom: 2px solid #2c3e50;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -23,6 +22,9 @@ body, html {
     left: calc((100vw/2) - (100vw/4));
     z-index: 401;
     min-width: 450px;
+}
+.header h1{
+    margin-bottom: 0;
 }
 .header nav ul{
     display: flex;
@@ -46,6 +48,26 @@ nav a {
 nav a:hover {
     color: #3498db;
 }
+
+.search-bar{
+    position: absolute;
+    z-index: 401;
+    left: 80%;
+    padding: 20px;
+    background-color: white;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    text-align: center;
+    
+}
+#flightSearchBox{
+    margin-bottom: 10px;
+}
+
+
+
+
+
 #map {
     height:100vh;
     width:100%;
@@ -62,8 +84,6 @@ nav a:hover {
     width: calc(100vw/2);
     background-color: #1a1a1a;
     color: #ffffff;
-    padding-top: 15px;  
-    padding-bottom: 15px    ;
     border-top: 2px solid #2c3e50;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     border-top-left-radius: 50%;
