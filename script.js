@@ -74,6 +74,7 @@ function carregarInformacoesInfoBox(e){
 function fecharInfoBox(e){
     elementoInfoBox.classList.remove("ativa");
     
+    
 }
 
 
@@ -88,6 +89,10 @@ L.DomEvent.disableClickPropagation(elementoInfoBox);
 //infoBox botao
 var elementoBotaoInfoBox = document.querySelector("#fechar_info-box");
 elementoBotaoInfoBox.addEventListener('click', fecharInfoBox);
+//fecha o popup do aviao
+elementoBotaoInfoBox.addEventListener('click', function(){
+    map.closePopup();
+});
 
 
 fetch("dummy_data/flights.json")

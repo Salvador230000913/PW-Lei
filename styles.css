@@ -94,6 +94,9 @@ nav a:hover {
 .leaflet-popup-tip-container{
     display: none;
 }
+.leaflet-popup-close-button{
+    display: none;
+}
 /* ESTILOS DA CAIXA DE INFORMAÇÃO SOBRE OS AVIOES */
 .info-box {
     position: absolute;
