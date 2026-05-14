@@ -131,6 +131,7 @@ nav a:hover {
     transition: opacity 0.3s ease, visibility 0.3s ease;
     top: 10px;
     left: 10px;
+    overflow: hidden;
 }
 .info-box.ativa{
     opacity: 1;
@@ -166,6 +167,11 @@ nav a:hover {
 }
 #fechar_info-box:hover{
     background-color:red;
+}
+.info-box img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
 }
 .flight-body {
     padding: 15px;
