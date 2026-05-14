@@ -54,7 +54,7 @@ nav a:hover {
     position: absolute;
 }
 .leaflet-tile-pane {
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    filter: grayscale(100%) brightness(80%);
 }
 /* --- ESTILOS DO RODAPÉ --- */
 .footer {
